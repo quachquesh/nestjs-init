@@ -17,20 +17,4 @@ export class AuthDto {
   @IsString()
   @IsNotEmpty({ message: "Mật khẩu là bắt buộc" })
   password: string;
-
-  @ApiProperty({
-    required: true,
-    description: "Họ",
-  })
-  @IsString()
-  @IsNotEmpty({ message: "Họ là bắt buộc" })
-  firstName?: string;
-
-  @ApiProperty({
-    required: true,
-    description: "Tên",
-  })
-  @IsString()
-  @IsNotEmpty({ message: "Tên là bắt buộc" })
-  lastName?: string;
 }

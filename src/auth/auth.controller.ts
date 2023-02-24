@@ -1,25 +1,30 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto";
+import { CreateUserDto } from "src/users/dto/create-user.dto";
 
 @Controller("auth")
 @ApiTags("Auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Post("signup")
   @ApiCreatedResponse({
     description: "Tạo tài khoản thành công",
-    type: AuthDto,
+    type: CreateUserDto,
   })
-  @Post("signup")
-  signup(@Body() dto: AuthDto) {
+  signup(@Body() dto: CreateUserDto) {
     console.log(dto);
-    return this.authService.signup();
+    return this.authService.signup(dto);
   }
 
+  @ApiOkResponse({
+    description: "Đăng nhập",
+    type: AuthDto,
+  })
   @Post("signin")
-  signin() {
-    return this.authService.signin();
+  signin(@Body() dto: AuthDto) {
+    return this.authService.signin(dto);
   }
 }
