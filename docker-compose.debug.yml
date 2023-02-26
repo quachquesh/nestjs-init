@@ -10,26 +10,15 @@ services:
     expose:
       - 5432
 
-  nestjsinit:
-    image: nestjsinit
+  nestjs-init:
+    image: nestjs-init
     build:
       context: .
       dockerfile: ./Dockerfile
     environment:
-      PORT=3000
+      - PORT=3000
     ports:
-      3000:3000
-    depends_on:
-      postgres
-    links:
-      postgres:postgres
+      - 3000:3000
     volumes:
-      .:/usr/src/app
-      /usr/src/app/node_modules
-    command: npm run start:dev
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-        - 8080:8080
+      - .:/usr/src/app/nestjs_init
+      - /usr/src/app/nestjs_init/node_modules

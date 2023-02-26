@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { PrismaService } from "src/prisma/prisma.service";
 import { AuthDto } from "./dto";
 import { CreateUserDto } from "src/users/dto/create-user.dto";
@@ -17,7 +17,6 @@ export class AuthService {
       return user;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        console.log("🚀 ~ file: auth.service.ts:18 ~ AuthService ~ signup ~ error:", error.code);
         if (error.code === "P2002") {
           throw new ForbiddenException("Tên tài khoản đã tồn tại");
         }
