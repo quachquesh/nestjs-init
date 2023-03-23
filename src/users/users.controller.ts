@@ -1,11 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { UpdateUserDto } from "./dto";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtGuard } from "../auth/guard";
-import { GetUser } from "../auth/decorator";
-import { User } from "@prisma/client";
 
 @Controller({
   path: "users",
@@ -16,16 +13,6 @@ import { User } from "@prisma/client";
 @UseGuards(JwtGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Get("me")
-  getMe(@GetUser() user: User) {
-    return user;
-  }
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
 
   @Get()
   findAll() {

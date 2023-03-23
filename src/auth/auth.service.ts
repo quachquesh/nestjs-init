@@ -16,6 +16,7 @@ export class AuthService {
       const hash = await argon.hash(data.password);
       data.password = hash;
       // Lưu data user vào database
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...user } = await this.prisma.user.create({
         data,
       });
@@ -32,7 +33,7 @@ export class AuthService {
   }
 
   async signin(data: AuthDto) {
-    const { password, ...user } = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         username: data.username,
       },
@@ -40,7 +41,7 @@ export class AuthService {
     if (!user) {
       throw new ForbiddenException("Tên tài khoản hoặc mật khẩu không đúng");
     }
-    const valid = await argon.verify(password, data.password);
+    const valid = await argon.verify(user.password, data.password);
     if (!valid) {
       throw new ForbiddenException("Tên tài khoản hoặc mật khẩu không đúng");
     }

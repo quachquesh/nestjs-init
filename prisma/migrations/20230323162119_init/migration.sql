@@ -5,8 +5,8 @@ CREATE TABLE "User" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "firstName" TEXT,
-    "lastName" TEXT,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
