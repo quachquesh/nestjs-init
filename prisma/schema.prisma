@@ -21,3 +21,12 @@ model User {
   firstName String
   lastName  String
 }
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fileName String
+  path     String @unique
+}
